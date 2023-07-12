@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital@1&display=swap');
+
+
+.AppBar .Typography {
+    font-family: 'Montserrat';
+    font-size: 100px;
+}

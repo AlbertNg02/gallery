@@ -1,0 +1,76 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+
+
+.gallery{
+    -webkit-column-count: 4;
+    -moz-column-count:  4;
+    column-count:4;
+    -webkit-column-width: 25%;
+    -moz-column-width: 25%;
+    column-width: 25%;
+    padding: 0 12px;
+}
+
+
+.gallery .pics{
+    -webkit-transition: all 350ms ease;
+    transition: all 350ms ease;
+    cursor: pointer;
+    margin-bottom: 20px;
+    /* border-radius: 10px; */
+    /* margin-right: 10px; */
+    
+    /* border-collapse: separate;  */
+    /* perspective: 1px;
+     */
+
+}
+
+.gallery .pics img {
+    border-radius: 10px;
+  }
+  
+
+.gallery.pics:hover{
+    filter: opacity(.8);
+}
+
+
+@media (max-width: 991px){
+    .gallery{
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+}
+
+@media (max-width:480px){
+    .gallery{
+        -webkit-column-count:1;
+        -moz-column-count: 1;
+        column-count:1;
+        -webkit-column-width: 100%;
+        -moz-column-width: 100%;
+        column-width: 100%;
+    }
+}
+
+.model img{
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 100%;
+    display: block;
+    line-height: 0;
+    box-sizing: border-box;
+    padding: 20px 0 20px;
+    margin: 0 auto;
+}
+
+.model.open svg{
+    position: fixed;
+    top:10;
+}

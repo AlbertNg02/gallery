@@ -1,15 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-import Gallery from './Gallery';
+import Header from "./components/Header";
+import Gallery from './components/Gallery';
 
 function App() {
   return (
     <div className="App">
+      <head>Header Lorem Ipsum</head>
       <header className="App-header">
-        <h1>
-          Lorem Ipsum
-        </h1>
+        <Header />
         <Gallery />
 
       </header>
