@@ -3,6 +3,7 @@ import './App.css';
 import React from 'react';
 import Header from "./components/Header";
 import Gallery from './components/Gallery';
+import Example from "./components/Example"
 
 function App() {
   return (
@@ -10,7 +11,9 @@ function App() {
       <head>Header Lorem Ipsum</head>
       <header className="App-header">
         <Header />
-        <Gallery />
+        {/* <Gallery /> */}
+        <Example />
+
 
       </header>
     </div>
