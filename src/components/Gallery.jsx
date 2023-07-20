@@ -7,30 +7,27 @@ import axios from "axios";
 const Gallery = () => {
     //    const [post, setPost] = useState([]);
     const [urls, setUrls] = useState([]);
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
-
-
-
-
-        
-        axios.get("http://172.104.181.160:1337/api/media-displays?populate[src][data][attributes][formats][0]&pagination[start]=0&pagination[limit]=9999")
-            .then((response) => {
-                // Assuming the JSON response is available in response.data
-                const data = response.data?.data;
-
-                // Extracting the URLs from the JSON data
-                const extractedUrls = extractUrlsFromJson(data);
-
-                // Setting the extracted URLs to the state
-                setUrls(extractedUrls);
-            })
-            .catch((error) => {
-                console.error('Error fetching data:', error);
-            });
-    }, []);
-
-
+        const fetchData = async () => {
+          try {
+            const response = await axios.get(`http://172.104.181.160:1337/api/media-displays?populate[src][data][attributes][formats][0]&pagination[page]=${page}`);
+            // Assuming the JSON response is available in response.data
+            const data = response.data?.data;
+    
+            // Extracting the URLs from the JSON data
+            const extractedUrls = extractUrlsFromJson(data);
+    
+            // Setting the extracted URLs to the state
+            setUrls(extractedUrls);
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+    
+        fetchData();
+      }, [page]);
 
 
 
