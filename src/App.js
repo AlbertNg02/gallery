@@ -11,8 +11,8 @@ function App() {
       <head>Header Lorem Ipsum</head>
       <header className="App-header">
         <Header />
-        {/* <Gallery /> */}
-        <Example />
+        <Gallery />
+        {/* <Example /> */}
 
 
       </header>
