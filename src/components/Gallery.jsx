@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './Gallery.css';
 import axios from "axios";
 // import { useInfiteQuery } from '@tanstack/react-query'
-import Loader from "./Loader";
+// import Loader from "./Loader";
+const PAGE_NUMBER = 1;
 
 
 const Gallery = () => {
     //    const [post, setPost] = useState([]);
     const [urls, setUrls] = useState([]);
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(PAGE_NUMBER);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -22,7 +23,12 @@ const Gallery = () => {
                 const extractedUrls = extractUrlsFromJson(data);
 
                 // Setting the extracted URLs to the state
-                setUrls(prev => [...prev, ...extractedUrls]);
+                // setUrls(prev => [...prev, ...extractedUrls]);
+
+                setUrls((prev) => {
+                    return [...prev, ...extractUrls];
+                });
+
                 setLoading(false)
 
             } catch (error) {
