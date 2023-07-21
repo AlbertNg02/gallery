@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Gallery.css';
 import axios from "axios";
 // import { useInfiteQuery } from '@tanstack/react-query'
@@ -11,6 +11,7 @@ const Gallery = () => {
     const [urls, setUrls] = useState([]);
     const [page, setPage] = useState(PAGE_NUMBER);
     const [loading, setLoading] = useState(false);
+    const isInitialRender = useRef(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -23,13 +24,14 @@ const Gallery = () => {
                 const extractedUrls = extractUrlsFromJson(data);
 
                 // Setting the extracted URLs to the state
+                if (!isInitialRender.current) {
+                    setUrls(prevUrls => [...prevUrls, ...extractedUrls]);
+                }
                 // setUrls(prev => [...prev, ...extractedUrls]);
-
-                setUrls((prev) => {
-                    return [...prev, ...extractedUrls];
-                });
-
+                console.log("set urls")
                 setLoading(false)
+                isInitialRender.current = false;
+
 
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -38,6 +40,7 @@ const Gallery = () => {
 
         fetchData();
     }, [page]);
+
 
 
 
@@ -62,7 +65,7 @@ const Gallery = () => {
 
     // Function to extract URLs from the JSON data
     const extractUrlsFromJson = (data) => {
-        console.log("Got some data")
+        // console.log("Got some data")
         // console.log(typeof(data))
         // console.log(data)
         // data_json = JSON.parse(data)
@@ -91,7 +94,7 @@ const Gallery = () => {
 
         })
 
-        console.log(urls)
+        // console.log(urls)
 
 
 
