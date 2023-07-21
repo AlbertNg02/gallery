@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Gallery.css';
 import axios from "axios";
 // import { useInfiteQuery } from '@tanstack/react-query'
-// import Loader from "./Loader";
+import Loader from "./Loader";
 const PAGE_NUMBER = 1;
 
 
@@ -26,7 +26,7 @@ const Gallery = () => {
                 // setUrls(prev => [...prev, ...extractedUrls]);
 
                 setUrls((prev) => {
-                    return [...prev, ...extractUrls];
+                    return [...prev, ...extractedUrls];
                 });
 
                 setLoading(false)
