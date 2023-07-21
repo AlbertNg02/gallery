@@ -2,35 +2,54 @@ import React, { useState, useEffect } from 'react';
 import './Gallery.css';
 import axios from "axios";
 // import { useInfiteQuery } from '@tanstack/react-query'
+import Loader from "./Loader";
 
 
 const Gallery = () => {
     //    const [post, setPost] = useState([]);
     const [urls, setUrls] = useState([]);
     const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
-          try {
-            const response = await axios.get(`http://172.104.181.160:1337/api/media-displays?populate[src][data][attributes][formats][0]&pagination[page]=${page}`);
-            // Assuming the JSON response is available in response.data
-            const data = response.data?.data;
-    
-            // Extracting the URLs from the JSON data
-            const extractedUrls = extractUrlsFromJson(data);
-    
-            // Setting the extracted URLs to the state
-            setUrls(extractedUrls);
-          } catch (error) {
-            console.error('Error fetching data:', error);
-          }
+            try {
+                const response = await axios.get(`http://172.104.181.160:1337/api/media-displays?populate[src][data][attributes][formats][0]&pagination[page]=${page}`);
+                // Assuming the JSON response is available in response.data
+                const data = response.data?.data;
+
+                // Extracting the URLs from the JSON data
+                const extractedUrls = extractUrlsFromJson(data);
+
+                // Setting the extracted URLs to the state
+                setUrls(prev => [...prev, ...extractedUrls]);
+                setLoading(false)
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
         };
-    
+
         fetchData();
-      }, [page]);
+    }, [page]);
 
 
 
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    const handleScroll = async () => {
+        if (
+            window.innerHeight + document.documentElement.scrollTop + 1 >=
+            document.documentElement.scrollHeight
+        ) {
+            setLoading(true);
+            setPage((prev) => prev + 1);
+        }
+    };
 
 
 
@@ -85,13 +104,14 @@ const Gallery = () => {
 
 
             <div className='gallery'>
-                {urls.map((url , index) => {
+                {urls.map((url, index) => {
                     return (
                         <div className='pics' key={index}>
                             <img src={url} style={{ width: '100%', }} />
                         </div>
                     )
                 })}
+                {loading && <Loader />}
             </div>
         </>
     )
